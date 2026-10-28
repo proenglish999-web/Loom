@@ -41,6 +41,12 @@ const chatManager = {
     const tabs = document.querySelectorAll('.chat-tab');
     console.log('Found tabs:', tabs.length);
     
+    // Показываем чаты по умолчанию
+    const chatsList = document.getElementById('chats-list');
+    const friendsList = document.getElementById('friends-list-main');
+    if (chatsList) chatsList.style.display = 'block';
+    if (friendsList) friendsList.style.display = 'none';
+    
     tabs.forEach((tab, index) => {
       console.log('Binding tab', index, tab.dataset.tab);
       
@@ -326,7 +332,11 @@ const chatManager = {
       `;
 
       item.addEventListener('click', () => {
-        this.createDirectChatWithFriend(friend.id, friend.displayName);
+        // Выделяем друга
+        document.querySelectorAll('#friends-select-list .friend-select-item').forEach(i => {
+          i.classList.remove('selected');
+        });
+        item.classList.add('selected');
       });
 
       container.appendChild(item);
